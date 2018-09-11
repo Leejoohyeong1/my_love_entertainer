@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 
 import lee.com.mvp_http_example.Listener.OnItemClickListener;
@@ -49,11 +50,16 @@ public class ImageViewItemHolder extends RecyclerView.ViewHolder{
 
     public void onBind(ImageItem item, final int position) {
 
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.my_love_entertainer);
 
-        Glide.with(context).load(item.getLink()).into(image);
+        Glide.with(this.context)
+                .load(item.getLink())
+                .apply(options)
+                .into(this.image);
 
-        title.setText(item.getTitle());
-
+        this.title.setText(item.getTitle());
 
         itemView.setOnClickListener(new View.OnClickListener() {
 
