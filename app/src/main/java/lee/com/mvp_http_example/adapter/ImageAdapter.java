@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import lee.com.mvp_http_example.R;
 import lee.com.mvp_http_example.adapter.adapterConteact.ImageAdapterConteact;
 import lee.com.mvp_http_example.adapter.holder.ImageViewItemHolder;
 import lee.com.mvp_http_example.retrofitintro.ImageItem;
-public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ImageAdapterConteact.view,ImageAdapterConteact.Model{
+public class ImageAdapter extends RecyclerView.Adapter<ImageViewItemHolder> implements ImageAdapterConteact.view,ImageAdapterConteact.Model{
 
     Context context;
     ArrayList<ImageItem> items;
@@ -28,24 +30,17 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         items = new ArrayList<ImageItem>();
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List payloads) {
-        super.onBindViewHolder(holder, position, payloads);
-    }
-
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ImageViewItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recyclerview, viewGroup, false);
         ImageViewItemHolder holder = new ImageViewItemHolder(v,context,clickLisetner);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
-        if (viewHolder == null) return;
-        ((ImageViewItemHolder) viewHolder).onBind(items.get(i),i);
+        public void onBindViewHolder(@NonNull ImageViewItemHolder imageViewItemHolder, int i) {
+        imageViewItemHolder.onBind(items.get(i),i);
     }
 
     @Override
@@ -84,7 +79,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void clearItems() {
         if(items != null){
             items.clear();
-            items = null;
         }
 
     }
