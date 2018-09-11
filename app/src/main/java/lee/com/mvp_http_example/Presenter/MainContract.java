@@ -16,8 +16,8 @@ public interface MainContract {
 
         void detachView();
 
-        void ImageSearch(String massage,int itemConut);
-
+        void ImageSearch(String massage);
+        void ImageMoreSearch(int itemConut);
         void setImageAdapterViewModel(ImageAdapterConteact.Model adapterViewModel);
         void setImageAdapterViewView(ImageAdapterConteact.view adapterViewView);
     }

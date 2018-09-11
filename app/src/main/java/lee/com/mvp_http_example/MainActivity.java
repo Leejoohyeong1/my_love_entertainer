@@ -62,12 +62,11 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(mLayoutManager, EndlessRecyclerViewScrollListener.LoadOnScrollDirection.BOTTOM) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
+                MainPersenter.ImageMoreSearch(totalItemsCount);
 
-                MainPersenter.ImageSearch("하니",totalItemsCount);
             }
         });
 
-        MainPersenter.ImageSearch("하니",0);
 
     }
 
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            MainPersenter.ImageSearch(editfield.getText().toString(),0);
+            MainPersenter.ImageSearch(editfield.getText().toString());
         }
     };
 

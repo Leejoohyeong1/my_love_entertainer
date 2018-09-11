@@ -40,18 +40,37 @@ public class MainPresenter implements MainContract.Presenter,OnItemClickListener
     }
 
     @Override
-    public void ImageSearch(String massage, int itemConut) {
-        if(massage.equals(SearchString) == false){
-            SearchString = massage;
-            page = 1;
-        }else{
-            if(itemConut == adapterViewModel.getSize()  && page > adapterViewModel.getSize()){ return; }
-            page+=30;
+    public void ImageSearch(String massage) {
+        if(massage.equals("")){
+            this.view.ToastShow("키워드를 입력해주세요");
+            return;
         }
-
-        Log.d("adapterViewModel size",""+itemConut);
-
+        this.SearchString = massage;
+        this.page = 1;
+        this.adapterViewModel.clearItems();
         Call<ImageResponse> call = apiInterface.NaverImageBySearch(massage,30,page,"sim");
+        call.enqueue(new Callback<ImageResponse>() {
+            @Override
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                adapterViewModel.addItems(response.body().getItems());
+                adapterViewView.notfyAdaoter();
+            }
+
+            @Override
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
+                view.ToastShow("데이터 로딩 실패");
+            }
+        });
+
+    }
+
+    @Override
+    public void ImageMoreSearch(int itemConut) {
+
+        if(itemConut == adapterViewModel.getSize()  && page > adapterViewModel.getSize()){ return; }
+        page+=30;
+
+        Call<ImageResponse> call = apiInterface.NaverImageBySearch(SearchString,30,page,"sim");
         call.enqueue(new Callback<ImageResponse>() {
             @Override
             public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
@@ -66,7 +85,6 @@ public class MainPresenter implements MainContract.Presenter,OnItemClickListener
                 view.ToastShow("데이터 로딩 실패");
             }
         });
-
     }
 
     @Override
