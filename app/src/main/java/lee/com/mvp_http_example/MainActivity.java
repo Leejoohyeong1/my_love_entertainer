@@ -1,5 +1,7 @@
 package lee.com.mvp_http_example;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -89,6 +91,18 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
     @Override
     public void ToastShow(String tittle) {
         Toast.makeText(this, tittle, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void ActivityChange(ImageItem item,ImageView imageView) {
+        Intent intent = new Intent(this, ImageDetailActivity.class);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(this, imageView, "imgAlbumArt");
+            intent.putExtra("ImageItem",item);
+            intent.getSerializableExtra("ImageItem");
+            startActivity(intent, options.toBundle());
+        }
     }
 }
 

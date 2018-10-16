@@ -1,6 +1,8 @@
 package lee.com.mvp_http_example.Presenter;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import lee.com.mvp_http_example.Listener.OnItemClickListener;
 import lee.com.mvp_http_example.adapter.adapterConteact.ImageAdapterConteact;
@@ -100,9 +102,9 @@ public class MainPresenter implements MainContract.Presenter,OnItemClickListener
 
 
     @Override
-    public void onItemClickListener(int position) {
+    public void onItemClickListener(int position, ImageView imageView) {
         ImageItem item = this.adapterViewModel.getItem(position);
-        view.ToastShow(item.getTitle());
+        view.ActivityChange(item,imageView);
     }
 
 }

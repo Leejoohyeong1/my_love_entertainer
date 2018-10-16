@@ -17,7 +17,6 @@ import lee.com.mvp_http_example.retrofitintro.ImageItem;
 
 public class ImageViewItemHolder extends RecyclerView.ViewHolder{
     ImageView image;
-    TextView title;
     Context context;
 
     private OnItemClickListener onItemClickListener;
@@ -27,7 +26,6 @@ public class ImageViewItemHolder extends RecyclerView.ViewHolder{
         super(itemView);
         this.context = context;
         image = (ImageView) itemView.findViewById(R.id.recyclerviewImage);
-        title = (TextView) itemView.findViewById(R.id.imagetitle);
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -40,17 +38,10 @@ public class ImageViewItemHolder extends RecyclerView.ViewHolder{
         this.image = image;
     }
 
-    public TextView getTitle() {
-        return title;
-    }
-
-    public void setTitle(TextView title) {
-        this.title = title;
-    }
-
     public void onBind(ImageItem item, final int position) {
 
         RequestOptions options = new RequestOptions()
+                .override(item.getSizewidth(),item.getSizeheight())
                 .centerCrop()
                 .placeholder(R.drawable.my_love_entertainer);
 
@@ -59,14 +50,12 @@ public class ImageViewItemHolder extends RecyclerView.ViewHolder{
                 .apply(options)
                 .into(this.image);
 
-        this.title.setText(item.getTitle());
-
         itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClickListener(position);
+                    onItemClickListener.onItemClickListener(position,image);
                 }
             }
         });

@@ -2,7 +2,9 @@ package lee.com.mvp_http_example.retrofitintro;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ImageItem{
+import java.io.Serializable;
+
+public class ImageItem implements Serializable{
     @Override
     public String toString() {
         return "ImageItem{" +
@@ -17,8 +19,8 @@ public class ImageItem{
     @SerializedName("title")  String title;
     @SerializedName("link")  String link;
     @SerializedName("thumbnail")  String thumbnail;
-    @SerializedName("sizeheight")  String sizeheight;
-    @SerializedName("sizewidth")  String sizewidth;
+    @SerializedName("sizeheight")  int sizeheight;
+    @SerializedName("sizewidth")  int sizewidth;
 
     public String getTitle() {
         return title;
@@ -44,19 +46,19 @@ public class ImageItem{
         this.thumbnail = thumbnail;
     }
 
-    public String getSizeheight() {
+    public int getSizeheight() {
         return sizeheight;
     }
 
-    public void setSizeheight(String sizeheight) {
+    public void setSizeheight(int sizeheight) {
         this.sizeheight = sizeheight;
     }
 
-    public String getSizewidth() {
+    public int getSizewidth() {
         return sizewidth;
     }
 
-    public void setSizewidth(String sizewidth) {
+    public void setSizewidth(int sizewidth) {
         this.sizewidth = sizewidth;
     }
 }
